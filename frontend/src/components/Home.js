@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import MoneyIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { useNavigate } from "react-router-dom";
 
@@ -6,16 +6,27 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-        <Typography variant="h3">CodeWallet</Typography>
+    <Stack spacing={2} alignItems="center" mt={4}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+        <Typography variant="h5">CodeWallet</Typography>
         <MoneyIcon fontSize="large" />
       </Box>
-      <Typography>Bienvenido a tu Wallet</Typography>
-      <Button variant="contained" onClick={() => navigate("/yourwallet")}>
+      <Typography>Crear una cuenta</Typography>
+      <Button
+        variant="contained"
+        onClick={() => navigate("/yourwallet")}
+        fullWidth
+      >
         Ir a tu Wallet
       </Button>
-    </div>
+      <Button
+        variant="contained"
+        onClick={() => navigate("/recover")}
+        fullWidth
+      >
+        Accede con tu frase semilla
+      </Button>
+    </Stack>
   );
 };
 

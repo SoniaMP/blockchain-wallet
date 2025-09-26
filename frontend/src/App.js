@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { MenuItem, Select } from "@mui/material";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { Box, IconButton, MenuItem, Select } from "@mui/material";
+import { Wallet } from "ethers";
 
 import logo from "./assets/logo.png";
 import "./App.css";
@@ -8,29 +9,48 @@ import Home from "./components/Home";
 import RecoverAccount from "./components/RecoverAccount";
 import CreateAccount from "./components/CreateAccount";
 import WalletView from "./components/WalletView";
+import { CHAINS_CONFIG } from "./utils";
 
 const App = () => {
+  const navigate = useNavigate();
   const [wallet, setWallet] = useState(null);
   const [seedPhrase, setSeedPhrase] = useState("");
   const [selectedChain, setSelectedChain] = useState("0x1");
 
-  return (
-    <div className="App">
-      <div className="Content">
-        <header>
-          <div className="headerContent">
-            <img src={logo} alt="Logo" className="headerLogo" />
-            <Select
-              value={selectedChain}
-              onChange={(e) => setSelectedChain(e.target.value)}
-            >
-              <MenuItem value="0x1">Ethereum</MenuItem>
-              <MenuItem value="0x13881">Mumbai Testnet</MenuItem>
-              <MenuItem value="0xAA36A7">Sepolia Testnet</MenuItem>
-            </Select>
-          </div>
-        </header>
+  function handleWalletCreated(seedPhrase) {
+    const wallet = Wallet.fromPhrase(seedPhrase).address;
+    setWallet(wallet);
+    setSeedPhrase(seedPhrase);
+    navigate("/wallet");
+  }
 
+  return (
+    <Box
+      sx={{
+        maxWidth: 400,
+        margin: "0 auto",
+        backgroundColor: "#f5f5f5",
+        minHeight: "100vh",
+      }}
+    >
+      <header>
+        <Box p={2}>
+          <IconButton onClick={() => navigate("/")}>
+            <img src={logo} alt="Logo" className="headerLogo" />
+          </IconButton>
+          <Select
+            value={selectedChain}
+            onChange={(e) => setSelectedChain(e.target.value)}
+          >
+            {CHAINS_CONFIG.map((chain) => (
+              <MenuItem key={chain.value} value={chain.value}>
+                {chain.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+      </header>
+      <Box p={2}>
         {wallet && seedPhrase ? (
           <Routes>
             <Route
@@ -38,9 +58,7 @@ const App = () => {
               element={
                 <WalletView
                   wallet={wallet}
-                  setWallet={setWallet}
                   seedPhrase={seedPhrase}
-                  setSeedPhrase={setSeedPhrase}
                   selectedChain={selectedChain}
                 />
               }
@@ -64,13 +82,14 @@ const App = () => {
                 <CreateAccount
                   setSeedPhrase={setSeedPhrase}
                   setWallet={setWallet}
+                  onWalletCreated={handleWalletCreated}
                 />
               }
             />
           </Routes>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
