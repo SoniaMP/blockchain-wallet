@@ -11,20 +11,20 @@ const Home = () => {
         <Typography variant="h5">CodeWallet</Typography>
         <MoneyIcon fontSize="large" />
       </Box>
-      <Typography>Crear una cuenta</Typography>
+      <Typography>Create an account</Typography>
       <Button
         variant="contained"
         onClick={() => navigate("/createwallet")}
         fullWidth
       >
-        Crear Wallet
+        Crete Wallet
       </Button>
       <Button
         variant="contained"
         onClick={() => navigate("/recover")}
         fullWidth
       >
-        Accede con tu frase semilla
+        Access with Seed Phrase
       </Button>
     </Stack>
   );

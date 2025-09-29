@@ -33,7 +33,7 @@ const SendForm = ({ onSend }) => {
 
   function handleSend() {
     if (!to || !amount || isNaN(amount) || Number(amount) < 0.001) {
-      setError("Dirección o cantidad inválida (mínimo 0.001 ETH)");
+      setError("Invalid address or amount (minimum 0.001 ETH)");
       return;
     }
 
@@ -45,7 +45,7 @@ const SendForm = ({ onSend }) => {
     <Stack spacing={2}>
       <TextField
         fullWidth
-        label="Dirección de destino"
+        label="Destination address"
         value={to}
         onChange={(e) => setTo(e.target.value)}
         placeholder="0x..."
@@ -53,7 +53,7 @@ const SendForm = ({ onSend }) => {
       />
       <TextField
         fullWidth
-        label="Cantidad (ETH)"
+        label="Amount (ETH)"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="0.01"
@@ -61,7 +61,7 @@ const SendForm = ({ onSend }) => {
         helperText={error}
       />
       <Button variant="contained" onClick={handleSend} fullWidth>
-        Enviar
+        Send
       </Button>
     </Stack>
   );
@@ -175,7 +175,7 @@ const WalletView = ({ wallet, seedPhrase, selectedChain, onLogout }) => {
 
       <Divider />
 
-      <Typography>Frase semilla</Typography>
+      <Typography>Seed phrase</Typography>
       <SeedPhrase>{seedPhrase}</SeedPhrase>
 
       <TabContext value={selectedTab}>
@@ -216,7 +216,7 @@ const WalletView = ({ wallet, seedPhrase, selectedChain, onLogout }) => {
               </>
             ) : (
               <Alert severity="warning">
-                <Typography>Todavía no tienes tokens</Typography>
+                <Typography>No tokens</Typography>
               </Alert>
             )}
           </Stack>
@@ -236,7 +236,7 @@ const WalletView = ({ wallet, seedPhrase, selectedChain, onLogout }) => {
               </Box>
             ) : (
               <Alert severity="warning">
-                <Typography>No tienes NFTs</Typography>
+                <Typography>No NFTs</Typography>
               </Alert>
             )}
           </Stack>
@@ -244,8 +244,7 @@ const WalletView = ({ wallet, seedPhrase, selectedChain, onLogout }) => {
         <TabPanel value={2}>
           <Stack spacing={2}>
             <Alert severity="info">
-              Envía una transacción a otra dirección (el valor mínimo es 0.001
-              ETH)
+              Send transaction to another address (minimum value is 0.001 ETH).
             </Alert>
 
             <Stack spacing={1} alignItems="center">
@@ -258,7 +257,7 @@ const WalletView = ({ wallet, seedPhrase, selectedChain, onLogout }) => {
             <SendForm onSend={sendTransaction} />
             {hash && (
               <Alert severity="success">
-                <Typography>Transacción enviada. Hash: {hash}</Typography>
+                <Typography>Transaction sent. Hash: {hash}</Typography>
               </Alert>
             )}
           </Stack>

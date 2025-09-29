@@ -20,17 +20,17 @@ const CreateAccount = ({ onWalletCreated }) => {
 
   return (
     <Stack spacing={2}>
-      <Typography variant="h5">Crear una nueva cuenta</Typography>
+      <Typography variant="h5">Create a new account</Typography>
       <Button variant="contained" onClick={generateWallet} fullWidth>
-        Generar frase semilla
+        Generate seed phrase
       </Button>
       {seedPhrase && (
         <Stack spacing={2} mt={2} alignItems="center">
-          <Typography variant="h6">Tu frase semilla</Typography>
+          <Typography variant="h6">Your seed phrase</Typography>
           <SeedPhrase>{seedPhrase}</SeedPhrase>
           <Alert severity="warning">
-            Guarda esta frase en un lugar seguro. La necesitarás para recuperar
-            tu cuenta.
+            <strong>Important:</strong> Keep this phrase in a safe place. You
+            will need it to recover your account.
           </Alert>
           <Button
             variant="outlined"
@@ -38,7 +38,7 @@ const CreateAccount = ({ onWalletCreated }) => {
             onClick={handleWalletCreated}
             fullWidth
           >
-            Abre tu nueva billetera
+            Open your new wallet
           </Button>
         </Stack>
       )}

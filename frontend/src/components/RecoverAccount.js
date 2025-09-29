@@ -28,8 +28,8 @@ const RecoverAccount = ({ onWalletRecovered }) => {
   return (
     <Stack spacing={2}>
       <Alert severity="info">
-        Escribe tu frase semilla en el campo de abajo para recuperar tu
-        billetera (debería incluir 12 palabras separadas por espacios)
+        Write your seed phrase in the field below to recover your wallet (it
+        should include 12 words separated by spaces)
       </Alert>
 
       <TextField
@@ -37,7 +37,7 @@ const RecoverAccount = ({ onWalletRecovered }) => {
         rows={6}
         multiline
         onChange={seedAdjust}
-        placeholder="Introduce tu frase semilla"
+        placeholder="Insert your seed phrase here"
       />
 
       <Button
@@ -47,12 +47,10 @@ const RecoverAccount = ({ onWalletRecovered }) => {
         }
         onClick={recoverWallet}
       >
-        Recuperar Billetera
+        Recover Wallet
       </Button>
 
-      {nonValid && (
-        <Typography color="error">Frase semilla inválida</Typography>
-      )}
+      {nonValid && <Typography color="error">Invalid seed phrase</Typography>}
     </Stack>
   );
 };
