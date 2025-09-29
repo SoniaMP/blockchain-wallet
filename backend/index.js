@@ -10,25 +10,24 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/getTokens", async (req, res) => {
-  const { userAddress, chain } = req.query;
-  console.log(userAddress, chain);
+  const { address, chain } = req.query;
 
-  if (!userAddress || !chain) {
-    return res.status(400).json({ error: "Missing userAddress or chain" });
+  if (!address || !chain) {
+    return res.status(400).json({ error: "Missing address or chain" });
   }
 
   const tokens = await Moralis.EvmApi.token.getWalletTokenBalances({
-    address: userAddress,
+    address: address,
     chain,
   });
 
-  const ntfs = await Moralis.EvmApi.nft.getWalletNFTs({
-    address: userAddress,
+  const nfts = await Moralis.EvmApi.nft.getWalletNFTs({
+    address: address,
     chain,
     mediaItems: true,
   });
 
-  const myNtfs = ntfs.raw.result.map((e, i) => {
+  const myNfts = nfts.raw.result.map((e, i) => {
     if (
       e?.media?.media_collection?.high?.url &&
       !e.possible_spam &&
@@ -39,14 +38,13 @@ app.get("/getTokens", async (req, res) => {
   });
 
   const balance = await Moralis.EvmApi.balance.getNativeBalance({
-    address: userAddress,
+    address: address,
     chain,
   });
 
   const result = {
     tokens: tokens.raw,
-    ntfs,
-    myNtfs,
+    nfts: myNfts,
     balance: balance.raw.balance / 10 ** 18,
   };
 

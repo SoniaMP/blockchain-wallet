@@ -14,10 +14,10 @@ const Home = () => {
       <Typography>Crear una cuenta</Typography>
       <Button
         variant="contained"
-        onClick={() => navigate("/yourwallet")}
+        onClick={() => navigate("/createwallet")}
         fullWidth
       >
-        Ir a tu Wallet
+        Crear Wallet
       </Button>
       <Button
         variant="contained"

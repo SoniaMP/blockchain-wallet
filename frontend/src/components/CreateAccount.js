@@ -1,12 +1,14 @@
 import React from "react";
-import { Alert, Box, Button, Stack, Typography } from "@mui/material";
+import { Alert, Button, Stack, Typography } from "@mui/material";
+import { Wallet } from "ethers";
+
+import { SeedPhrase } from "../styled";
 
 const CreateAccount = ({ onWalletCreated }) => {
   const [seedPhrase, setSeedPhrase] = React.useState("");
 
   function generateWallet() {
-    const newSeedPhrase =
-      "carpet, cat, flower, chair, foot, river, make, image, amazing, three, say, shoe";
+    const newSeedPhrase = Wallet.createRandom().mnemonic.phrase;
     setSeedPhrase(newSeedPhrase);
   }
 
@@ -17,15 +19,15 @@ const CreateAccount = ({ onWalletCreated }) => {
   }
 
   return (
-    <Box padding={2}>
+    <Stack spacing={2}>
       <Typography variant="h5">Crear una nueva cuenta</Typography>
       <Button variant="contained" onClick={generateWallet} fullWidth>
         Generar frase semilla
       </Button>
       {seedPhrase && (
         <Stack spacing={2} mt={2} alignItems="center">
-          <Typography variant="h5">Tu frase semilla:</Typography>
-          <Typography>{seedPhrase}</Typography>
+          <Typography variant="h6">Tu frase semilla</Typography>
+          <SeedPhrase>{seedPhrase}</SeedPhrase>
           <Alert severity="warning">
             Guarda esta frase en un lugar seguro. La necesitarás para recuperar
             tu cuenta.
@@ -40,7 +42,7 @@ const CreateAccount = ({ onWalletCreated }) => {
           </Button>
         </Stack>
       )}
-    </Box>
+    </Stack>
   );
 };
 
