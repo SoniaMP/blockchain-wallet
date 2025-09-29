@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Code Wallet",
+  "version": "1.0.0",
+  "description": "A wallet for managing your cryptocurrencies",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Code Wallet",
+    "default_icon": "favicon.ico"
+  },
+  "permissions": ["storage"]
+}
